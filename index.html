@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Intents and Lifecycle</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/white.css">
@@ -30,6 +30,13 @@
         </section>
 
         <!-- Slide -->
+        <section data-background-color="#000">
+					<blockquote cite="https://developer.android.com/guide/components/intents-filters.html">
+            &ldquo;Intent is a messaging object you can use to request an action from another app component. Although intents facilitate communication between components in several ways, there are three fundamental use cases: Starting an activity, Starting a service, Delivering a broadcast.&rdquo;
+					</blockquote>
+        </section>
+
+        <!-- Slide -->
         <section>
           <figure>
             <img width="600" alt="" src="http://www.vogella.com/tutorials/AndroidIntent/img/xstartactivityviaintent10.png.pagespeed.ic.XIxbBb_YEg.webp" />
@@ -38,6 +45,138 @@
             <small>Photo credit: <a href="https://twitter.com/vogella" data-href="https://twitter.com/vogella" class="markup--anchor markup--figure-anchor" rel="noopener" target="_blank">@vogella</a></small>
           </p>
         </section>
+
+        <!-- Slide -->
+        <section>
+          <pre><code data-trim data-noescape>
+# Start the activity connect to the
+# specified class
+
+Intent i = new Intent(this, ActivityTwo.class);
+startActivity(i);
+          </code></pre>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h1>Android application and activity life cycle</h1>
+        </section>
+
+        <!-- Slide -->
+        <section data-background-color="#000">
+					<blockquote cite="http://www.vogella.com/tutorials/AndroidLifeCycle/article.html">
+            &ldquo;To manage limited system resources the Android system can terminate running applications. Each application is started in a new process with a unique ID under a unique user. If the Android system needs to free up resources it follows a simple set of rules.&rdquo;
+					</blockquote>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>The out-of-memory killer</h2>
+        </section>
+
+				<!-- Slide -->
+				<section>
+					<h2>Foreground</h2>
+					Priority: 1
+					<p>An application in which the user is interacting with an activity, or which has an service which is bound to such an activity. Also if a service is executing one of its lifecycle methods or a broadcast receiver which runs its onReceive() method.</p>
+				</section>
+
+        <!-- Slide -->
+        <section>
+          <h2>Visible</h2>
+          Priority: 2
+          <p>User is not interacting with the activity, but the activity is still (partially) visible or the application has a service which is used by a inactive but visible activity.</p>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>Service</h2>
+          Priority: 3
+          <p>Application with a running service which does not qualify for 1 or 2.</p>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>Background</h2>
+          Priority: 4
+          <p>Application with only stopped activities and without a service or executing receiver. Android keeps them in a least recent used (LRU) list and if requires terminates the one which was least used.</p>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>Empty</h2>
+          Priority: 5
+          <p>Application without any active components.</p>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>States of an activity</h2>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>Running</h2>
+          <p>Activity is visible and interacts with the user.</p>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>Paused</h2>
+          <p>Activity is still visible but partially obscured, instance is running but might be killed by the system.</p>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>Stopped</h2>
+          <p>Activity is not visible, instance is running but might be killed by the system.</p>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>Killed</h2>
+          <p>Activity has been terminated by the system of by a call to its finish() method.</p>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>The live cycle methods</h2>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>onCreate()</h2>
+          <p>Called then the activity is created. Used to initialize the activity, for example create the user interface.</p>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>onResume()</h2>
+          <p>Called if the activity get visible again and the user starts interacting with the activity again. Used to initialize fields, register listeners, bind to services, etc.</p>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>onPause()</h2>
+          <p>Called once another activity gets into the foreground. Always called before the activity is not visible anymore. Used to release resources or save application data. For example you unregister listeners, intent receivers, unbind from services or remove system service listeners.</p>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <h2>onStop()</h2>
+          <p>Called once the activity is no longer visible. Time or CPU intensive shut-down operations, such as writing information to a database should be down in the onStop() method. This method is guaranteed to be called as of API 11.</p>
+        </section>
+
+        <!-- Slide -->
+        <section>
+          <figure>
+            <img width="500" alt="" src="https://developer.android.com/guide/components/images/activity_lifecycle.png" />
+          </figure>
+          <p>
+            <small>Photo credit: <a href="https://developer.android.com/guide/components/activities/activity-lifecycle.html" data-href="https://developer.android.com/guide/components/activities/activity-lifecycle.html" class="markup--anchor markup--figure-anchor" rel="noopener" target="_blank">The Activity Lifecycle</a></small>
+          </p>
+        </section>
+
 			</div>
 		</div>
 
